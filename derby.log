@@ -1,0 +1,32 @@
+----------------------------------------------------------------
+Tue Jul 12 21:32:53 EET 2022:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0181-f3e6-67ee-000000f98d28 
+on database directory memory:/home/ashry/Downloads/spring/shopping-cart/7e466356-5469-49c9-b0e0-e1aa35dd518e with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@42110406 
+Loaded from file:/home/ashry/.m2/repository/org/apache/derby/derby/10.14.2.0/derby-10.14.2.0.jar
+java.vendor=Eclipse Adoptium
+java.runtime.version=17.0.3+7
+user.dir=/home/ashry/Downloads/spring/shopping-cart
+os.name=Linux
+os.arch=amd64
+os.version=5.17.12-100.fc34.x86_64
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
+----------------------------------------------------------------
+Thu Jul 14 00:16:57 EET 2022:
+Shutting down instance a816c00e-0181-f3e6-67ee-000000f98d28 on database directory memory:/home/ashry/Downloads/spring/shopping-cart/7e466356-5469-49c9-b0e0-e1aa35dd518e with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@42110406 
+----------------------------------------------------------------
+Thu Jul 14 00:16:59 EET 2022:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance c24e0171-0181-f3e6-67ee-000000f98d28 
+on database directory memory:/home/ashry/Downloads/spring/shopping-cart/72469f88-842f-41fa-b8fa-35f82dd2e2d7 with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@42110406 
+Loaded from file:/home/ashry/.m2/repository/org/apache/derby/derby/10.14.2.0/derby-10.14.2.0.jar
+java.vendor=Eclipse Adoptium
+java.runtime.version=17.0.3+7
+user.dir=/home/ashry/Downloads/spring/shopping-cart
+os.name=Linux
+os.arch=amd64
+os.version=5.17.12-100.fc34.x86_64
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
+----------------------------------------------------------------
+Thu Jul 14 00:17:00 EET 2022:
+Shutting down instance c24e0171-0181-f3e6-67ee-000000f98d28 on database directory memory:/home/ashry/Downloads/spring/shopping-cart/72469f88-842f-41fa-b8fa-35f82dd2e2d7 with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@42110406 
