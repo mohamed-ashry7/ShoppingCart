@@ -1,13 +1,11 @@
 package com.shoppingcart.controllers;
 
-import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,44 +32,34 @@ public class CustomerController {
 	@Autowired
 	private CartService cartService;
 
-	@PostMapping("/signup")
-	public void createCustomer(@RequestBody Customer c) {
-		this.customerService.createCustomer(c);
-	}
-
-	@GetMapping("/allCustomers")
-	public ResponseEntity<List<Customer>> getAllCustomers() {
-		return new ResponseEntity<List<Customer>>(customerService.getAllCustomers(), HttpStatus.OK);
-	}
-
 	
 	@ResponseStatus(HttpStatus.CREATED)
-	@PostMapping("/addProduct/{customerId}")
+	@PostMapping("/customers/{customerId}/addCartItem")
 	public Cart addProductToCart(@PathVariable int customerId, @RequestBody CartItem ci) {
 		Customer c = this.customerService.getCustomerById(customerId);
 		Cart cart = c.getCart();
 		return this.cartService.addCartItem(cart.getId(), ci);
 	}
 
-	@PatchMapping("/updateProductQuantity/{customerId}")
+	@PatchMapping("/customers/{customerId}/updateCartItemQuantity")
 	public Cart addProductToCart(@PathVariable int customerId, @RequestParam int quantity,
 			@RequestParam int productId) {
 		Customer c = this.customerService.getCustomerById(customerId);
 		Cart cart = c.getCart();
-		return this.cartService.updateProductQuantity(cart.getId(), productId, quantity);
+		return this.cartService.updateCartItemQuantity(cart.getId(), productId, quantity);
 	}
 	
 	@ResponseStatus(code=HttpStatus.NO_CONTENT)
-	@DeleteMapping("/removeProduct/{customerId}")
-	public void deleteProduct(@PathVariable int customerId, @RequestParam int productId) {
+	@DeleteMapping("/customers/{customerId}/removeCartItem/{cartItemId}")
+	public void deleteProduct(@PathVariable int customerId, @PathVariable int cartItemId) {
 		Customer c = this.customerService.getCustomerById(customerId);
 		Cart cart = c.getCart();
-		this.cartService.removeProductFromCart(cart.getId(), productId);
+		this.cartService.removeCartItemFromCart(cart.getId(), cartItemId);
 
 	}
 	
 	@ResponseStatus(code=HttpStatus.NO_CONTENT)
-	@DeleteMapping("/emptyCart/{customerId}")
+	@DeleteMapping("/customers/{customerId}/emptyCart")
 	public void emptyCart(@PathVariable int customerId) {
 		Customer c = this.customerService.getCustomerById(customerId);
 		Cart cart = c.getCart();

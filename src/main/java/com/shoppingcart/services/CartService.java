@@ -2,6 +2,7 @@ package com.shoppingcart.services;
 
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,8 @@ public class CartService {
 	@Autowired
 	private CartItemRepository cartItemRepository ; 
 	
+	
+	
 	public void createCartItem(CartItem ci) { 
 		cartItemRepository.save(ci) ; 
 	}
@@ -31,6 +34,7 @@ public class CartService {
 	
 	public Cart addCartItem(int cartId, CartItem cartItem) {
 		Cart c = this.cartRepository.findById(cartId).get();
+		this.cartItemRepository.save(cartItem);
 		c.addCartItem(cartItem);
 		return cartRepository.save(c);
 
@@ -49,36 +53,36 @@ public class CartService {
 		return this.cartRepository.findById(cartId).get();
 	}
 
-	public List<CartItem> getItemsInCart(int cartId) {
-		return this.cartRepository.findById(cartId).get().getCartItems();
-	}
-
-	public Cart updateProductQuantity(int cartId, int productId, int newQuantity) {
+	public Cart updateCartItemQuantity(int cartId, int cartItemId, int newQuantity) {
 		Cart c = this.getCartById(cartId);
 		List<CartItem> cis = c.getCartItems();
 		for (CartItem ci : cis) {
-			if (ci.getProduct().getId() == productId) {
+			if (ci.getId() == cartItemId) {
+				if (ci.getProduct().getQuantity()<newQuantity) {
+					break ; 
+				}
 				ci.setQuantity(newQuantity);
+				this.cartItemRepository.save(ci);
 				this.cartRepository.save(c);
-
 				break ; 
 			}
 		}
 		return c ; 
 	}
 
-	public int getProductQuantityInCart(int cartId, int productId) {
-		List<CartItem> cis = this.getItemsInCart(cartId);
+	public int getCartItemQuantityInCart(int cartId, int cartItemId) {
+		List<CartItem> cis = this.cartRepository.findById(cartId).get().getCartItems();
 		for (CartItem ci : cis) {
-			if (ci.getProduct().getId() == productId) {
+			if (ci.getId() == cartItemId) {
 				return ci.getQuantity();
 			}
 		}
 		return -1 ; 
 	}
-	public void removeProductFromCart(int cartId, int productId) { 
+	public void removeCartItemFromCart(int cartId, int cartItemId) { 
 		Cart c = this.getCartById(cartId); 
-		List<CartItem> cis = c.getCartItems().stream().filter(ci->ci.getProduct().getId()!=productId).collect(Collectors.toList());
+		List<CartItem> cis = c.getCartItems().stream().filter(ci->ci.getId()!=cartItemId).collect(Collectors.toList());
+		this.cartItemRepository.deleteById(cartItemId);
 		c.setCartItems(cis);
 		this.cartRepository.save(c);
 	}
