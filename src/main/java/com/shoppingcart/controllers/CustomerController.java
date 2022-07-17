@@ -77,7 +77,7 @@ public class CustomerController {
 		this.cartService.emptyTheCart(cart.getId());
 	}
 	
-	@PostMapping("/customers/{customerId}/subscribe}")
+	@PostMapping("/customers/{customerId}/subscribe")
 	public void createEmailSubscriber(@PathVariable int customerId) {
 		Customer c = customerService.getCustomerById(customerId);
 		EmailSubscriber es = new EmailSubscriber(); 
@@ -87,7 +87,7 @@ public class CustomerController {
 		emailSubscriberService.createEmailSubscriber(es); 
 	}
 	
-	@PostMapping("/customers/{customerId}/placeOrder}")
+	@PostMapping("/customers/{customerId}/placeOrder")
 	public void placeOrder(@PathVariable int customerId) {
 		Customer c = this.customerService.getCustomerById(customerId);
 		Cart cart = c.getCart(); 

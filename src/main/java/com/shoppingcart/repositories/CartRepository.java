@@ -1,10 +1,10 @@
 package com.shoppingcart.repositories;
 
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.shoppingcart.models.Cart;
 
-public interface CartRepository extends CrudRepository<Cart, Integer>{
+public interface CartRepository extends JpaRepository<Cart, Integer>{
 
 }
