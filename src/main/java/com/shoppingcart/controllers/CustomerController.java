@@ -18,8 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.shoppingcart.models.Cart;
 import com.shoppingcart.models.CartItem;
 import com.shoppingcart.models.Customer;
+import com.shoppingcart.models.CustomerOrder;
+import com.shoppingcart.models.EmailSubscriber;
 import com.shoppingcart.services.CartService;
+import com.shoppingcart.services.CustomerOrderService;
 import com.shoppingcart.services.CustomerService;
+import com.shoppingcart.services.EmailSubscriberService;
 
 @RestController
 @RequestMapping(produces = "application/json")
@@ -32,17 +36,24 @@ public class CustomerController {
 	@Autowired
 	private CartService cartService;
 
+
+	@Autowired
+	private EmailSubscriberService emailSubscriberService;
+	
+
+	@Autowired
+	private CustomerOrderService customerOrderService;
 	
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping("/customers/{customerId}/addCartItem")
-	public Cart addProductToCart(@PathVariable int customerId, @RequestBody CartItem ci) {
+	public Cart addCartItemToCart(@PathVariable int customerId, @RequestBody CartItem ci) {
 		Customer c = this.customerService.getCustomerById(customerId);
 		Cart cart = c.getCart();
 		return this.cartService.addCartItem(cart.getId(), ci);
 	}
 
 	@PatchMapping("/customers/{customerId}/updateCartItemQuantity")
-	public Cart addProductToCart(@PathVariable int customerId, @RequestParam int quantity,
+	public Cart updateCartItemToCart(@PathVariable int customerId, @RequestParam int quantity,
 			@RequestParam int productId) {
 		Customer c = this.customerService.getCustomerById(customerId);
 		Cart cart = c.getCart();
@@ -64,6 +75,28 @@ public class CustomerController {
 		Customer c = this.customerService.getCustomerById(customerId);
 		Cart cart = c.getCart();
 		this.cartService.emptyTheCart(cart.getId());
+	}
+	
+	@PostMapping("/customers/{customerId}/subscribe}")
+	public void createEmailSubscriber(@PathVariable int customerId) {
+		Customer c = customerService.getCustomerById(customerId);
+		EmailSubscriber es = new EmailSubscriber(); 
+		es.setFirstName(c.getFirstName());
+		es.setLastName(c.getLastName());
+		es.setEmail(c.getEmail());
+		emailSubscriberService.createEmailSubscriber(es); 
+	}
+	
+	@PostMapping("/customers/{customerId}/placeOrder}")
+	public void placeOrder(@PathVariable int customerId) {
+		Customer c = this.customerService.getCustomerById(customerId);
+		Cart cart = c.getCart(); 
+		CustomerOrder co = new CustomerOrder(); 
+		co.setCartItems(cart.getCartItems()) ; 
+		co.setTotalPrice(cart.getCartTotal()); 
+		co.setCustomer(c);
+		co.setStatus("Placed");
+		this.customerOrderService.createCustomerOrder(co);
 	}
 
 }

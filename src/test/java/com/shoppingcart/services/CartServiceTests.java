@@ -38,15 +38,20 @@ public class CartServiceTests {
 		int id = t.getId();
 		CartItem ci = new CartItem(); 
 		Product p = new Product() ; 
+		p.setQuantity(10);
 		productService.createProduct(p);
 		ci.setProduct(p);
 		
 		cartService.addCartItem(id, ci);
-		assert cartService.getProductQuantityInCart(id, p.getId())==0;
+		assert cartService.getCartItemQuantityInCart(id, ci.getId())==0;
 		
 		
-		this.cartService.updateProductQuantity(t.getId(), p.getId(), 3);
-		assert cartService.getProductQuantityInCart(id, p.getId())==3;
+		this.cartService.updateCartItemQuantity(t.getId(), ci.getId(), 3);
+		assert cartService.getCartItemQuantityInCart(id, ci.getId())==3;
+		
+		this.cartService.updateCartItemQuantity(t.getId(), ci.getId(), 11);
+		assert cartService.getCartItemQuantityInCart(id, ci.getId())==3;
+
 
 
 	}
@@ -64,7 +69,7 @@ public class CartServiceTests {
 		
 		assert this.cartService.getNumberOfItemsInCart(cartId) == 1 ; 
 		
-		this.cartService.removeProductFromCart(cartId,p.getId()) ; 
+		this.cartService.removeCartItemFromCart(cartId,ci.getId()) ; 
 		assert this.cartService.getNumberOfItemsInCart(cartId) == 0 ; 
 
 		

@@ -2,7 +2,6 @@ package com.shoppingcart.services;
 
 
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,9 +81,9 @@ public class CartService {
 	public void removeCartItemFromCart(int cartId, int cartItemId) { 
 		Cart c = this.getCartById(cartId); 
 		List<CartItem> cis = c.getCartItems().stream().filter(ci->ci.getId()!=cartItemId).collect(Collectors.toList());
-		this.cartItemRepository.deleteById(cartItemId);
 		c.setCartItems(cis);
 		this.cartRepository.save(c);
+		this.cartItemRepository.deleteById(cartItemId);
 	}
 	
 	public void emptyTheCart(int cartId) {
