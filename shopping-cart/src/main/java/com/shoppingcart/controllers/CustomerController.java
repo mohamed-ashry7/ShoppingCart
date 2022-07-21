@@ -3,6 +3,7 @@ package com.shoppingcart.controllers;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -43,6 +44,8 @@ public class CustomerController {
 
 	@Autowired
 	private CustomerOrderService customerOrderService;
+	
+
 	
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping("/customers/{customerId}/addCartItem")
@@ -96,6 +99,7 @@ public class CustomerController {
 		co.setTotalPrice(cart.getCartTotal()); 
 		co.setCustomer(c);
 		co.setStatus("Placed");
+		
 		this.customerOrderService.createCustomerOrder(co);
 	}
 
