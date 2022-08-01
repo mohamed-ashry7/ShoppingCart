@@ -5,8 +5,10 @@ package com.shoppingcart.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,7 +47,17 @@ public class CustomerController {
 	@Autowired
 	private CustomerOrderService customerOrderService;
 	
-
+	@Autowired
+	private PasswordEncoder passwordEncoder; 
+	
+	@GetMapping("/register")
+	public void register(@RequestBody Customer c ) 
+	{
+		c.setPassword(passwordEncoder.encode(c.getPassword())); 
+		customerService.createCustomer(c);
+		
+	}
+	
 	
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping("/customers/{customerId}/addCartItem")
@@ -86,7 +98,7 @@ public class CustomerController {
 		EmailSubscriber es = new EmailSubscriber(); 
 		es.setFirstName(c.getFirstName());
 		es.setLastName(c.getLastName());
-		es.setEmail(c.getEmail());
+		es.setEmail(c.getUsername());
 		emailSubscriberService.createEmailSubscriber(es); 
 	}
 	

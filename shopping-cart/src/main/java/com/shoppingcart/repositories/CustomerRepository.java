@@ -7,4 +7,7 @@ import com.shoppingcart.models.Customer;
 
 public interface CustomerRepository extends JpaRepository<Customer, Integer>{
 
+	
+	
+	public Customer findCustomerByUsername(String username) ;
 }
