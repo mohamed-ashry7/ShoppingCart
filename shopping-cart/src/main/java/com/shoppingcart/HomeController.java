@@ -2,7 +2,8 @@ package com.shoppingcart;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
+//import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,9 +13,17 @@ import com.shoppingcart.services.ProductService;
 @RestController
 public class HomeController {
 
-	@Autowired
-	private ProductService productService ; 
+	private final ProductService productService ; 
 	
+	
+	
+	public HomeController(ProductService productService) {
+//		super();
+		this.productService = productService;
+	}
+
+
+
 	@GetMapping("/")
 	public List<Product> home() {
 		return productService.getAllAvailableProducts(); 

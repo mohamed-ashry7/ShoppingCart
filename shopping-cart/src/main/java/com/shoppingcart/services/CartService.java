@@ -2,9 +2,9 @@ package com.shoppingcart.services;
 
 
 import java.util.List;
+
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.shoppingcart.models.Cart;
@@ -15,14 +15,17 @@ import com.shoppingcart.repositories.CartRepository;
 @Service
 public class CartService {
 
-	@Autowired
-	private CartRepository cartRepository;
-	
-	@Autowired
-	private CartItemRepository cartItemRepository ; 
+
+	private final CartRepository cartRepository;
+	private final CartItemRepository cartItemRepository ; 
 	
 	
 	
+	public CartService(CartRepository cartRepository, CartItemRepository cartItemRepository) {
+		this.cartRepository = cartRepository;
+		this.cartItemRepository = cartItemRepository;
+	}
+
 	public void createCartItem(CartItem ci) { 
 		cartItemRepository.save(ci) ; 
 	}

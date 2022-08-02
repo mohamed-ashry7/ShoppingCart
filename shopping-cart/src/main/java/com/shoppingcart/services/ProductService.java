@@ -1,9 +1,9 @@
 package com.shoppingcart.services;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.shoppingcart.models.Product;
 
@@ -12,8 +12,14 @@ import com.shoppingcart.repositories.ProductRepository;
 @Service
 public class ProductService {
 
-	@Autowired
-	private ProductRepository productRepository;
+	
+	private final ProductRepository productRepository;
+
+	
+	
+	public ProductService(ProductRepository productRepository) {
+		this.productRepository = productRepository;
+	}
 
 	public void createProduct(Product product) {
 		productRepository.save(product);

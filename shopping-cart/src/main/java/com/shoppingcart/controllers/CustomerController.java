@@ -2,7 +2,6 @@ package com.shoppingcart.controllers;
 
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -33,23 +32,26 @@ import com.shoppingcart.services.EmailSubscriberService;
 @CrossOrigin(origins="*")
 public class CustomerController {
 
-	@Autowired
-	private CustomerService customerService;
-
-	@Autowired
-	private CartService cartService;
-
-
-	@Autowired
-	private EmailSubscriberService emailSubscriberService;
+	private final CustomerService customerService;
+	private final CartService cartService;
+	private final EmailSubscriberService emailSubscriberService;
+	private final CustomerOrderService customerOrderService;
+	private final PasswordEncoder passwordEncoder; 
 	
+	
+	
+	
+	public CustomerController(CustomerService customerService, CartService cartService,
+			EmailSubscriberService emailSubscriberService, CustomerOrderService customerOrderService,
+			PasswordEncoder passwordEncoder) {
+		this.customerService = customerService;
+		this.cartService = cartService;
+		this.emailSubscriberService = emailSubscriberService;
+		this.customerOrderService = customerOrderService;
+		this.passwordEncoder = passwordEncoder;
+	}
 
-	@Autowired
-	private CustomerOrderService customerOrderService;
-	
-	@Autowired
-	private PasswordEncoder passwordEncoder; 
-	
+
 	@GetMapping("/register")
 	public void register(@RequestBody Customer c ) 
 	{

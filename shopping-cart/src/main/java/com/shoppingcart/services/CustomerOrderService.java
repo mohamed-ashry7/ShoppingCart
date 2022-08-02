@@ -1,6 +1,6 @@
 package com.shoppingcart.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 import com.shoppingcart.models.CustomerOrder;
@@ -10,10 +10,16 @@ import com.shoppingcart.repositories.CustomerOrderRepository;
 public class CustomerOrderService {
 
 	
-	@Autowired
-	private CustomerOrderRepository customerOrderRepository ; 
+	
+	private final CustomerOrderRepository customerOrderRepository ; 
 	
 	
+	public CustomerOrderService(CustomerOrderRepository customerOrderRepository) {
+		super();
+		this.customerOrderRepository = customerOrderRepository;
+	}
+
+
 	public void createCustomerOrder(CustomerOrder co) { 
 		this.customerOrderRepository.save(co) ; 
 		

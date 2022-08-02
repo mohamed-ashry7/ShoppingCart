@@ -17,8 +17,12 @@ import com.shoppingcart.services.CustomerService;
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 	
-	@Autowired
-	private CustomerService customerService; 
+	private final CustomerService customerService; 
+	
+	
+	public SecurityConfig(CustomerService customerService) {
+		this.customerService = customerService;
+	}
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
