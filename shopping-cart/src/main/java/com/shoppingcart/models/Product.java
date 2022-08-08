@@ -23,7 +23,7 @@ public @Data class Product {
 	
 	private String code ;
 	private String description; 
-	private byte[] image; 
+	private String imageURL; 
 	private int quantity; 
 	private double price ;
 	private Date lastUpdated; 

@@ -1,6 +1,7 @@
 package com.shoppingcart.models;
 
 import java.util.Arrays;
+
 import java.util.Collection;
 
 import javax.persistence.CascadeType;
@@ -10,14 +11,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+//import org.springframework.security.core.GrantedAuthority;
+//import org.springframework.security.core.authority.SimpleGrantedAuthority;
+//import org.springframework.security.core.userdetails.UserDetails;
 
 import lombok.Data;
 
 @Entity
-public @Data class Customer implements UserDetails {
+public @Data class Customer 
+//implements UserDetails 
+{
 
 	
 	
@@ -39,31 +42,31 @@ public @Data class Customer implements UserDetails {
 	@OneToOne(targetEntity = Cart.class, cascade = CascadeType.ALL)
 	private Cart cart =new Cart();
 
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
-	}
-
-
-	@Override
-	public boolean isAccountNonExpired() {
-		return true;
-	}
-
-	@Override
-	public boolean isAccountNonLocked() {
-		return true;
-	}
-
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return true;
-	} 
+//	@Override
+//	public Collection<? extends GrantedAuthority> getAuthorities() {
+//		return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
+//	}
+//
+//
+//	@Override
+//	public boolean isAccountNonExpired() {
+//		return true;
+//	}
+//
+//	@Override
+//	public boolean isAccountNonLocked() {
+//		return true;
+//	}
+//
+//	@Override
+//	public boolean isCredentialsNonExpired() {
+//		return true;
+//	}
+//
+//	@Override
+//	public boolean isEnabled() {
+//		return true;
+//	} 
 	
 	
 		

@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+import React, {Component} from "react"; 
+
+import axios from "axios";
+import ProductGrid from "./components/product/ProductGrid";
+
+const backendURL = "http://localhost:8080"; 
+
+class App extends Component {
+
+
+
+  state = {
+    products:[]
+  }
+
+
+  componentDidMount(){
+    axios.get(backendURL)
+    .then(res => {
+      const theProducts = [...res.data] 
+      this.setState({
+        products:theProducts
+      })
+    });
+  }
+
+  render(){
+
+
+    return (
+      <ProductGrid products={this.state.products}/>
+    );
+  }
 }
 
 export default App;

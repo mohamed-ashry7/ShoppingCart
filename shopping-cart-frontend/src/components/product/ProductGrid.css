@@ -1,0 +1,12 @@
+
+
+
+.grid-container{
+    display: inline-grid;
+    grid-gap: 1px;
+    align-items: center;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas: 'a b c d e f';
+    grid-column-gap: 3px;
+    grid-row-gap: 2px;
+}

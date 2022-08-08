@@ -4,7 +4,8 @@ package com.shoppingcart.controllers;
 
 
 import org.springframework.http.HttpStatus;
-import org.springframework.security.crypto.password.PasswordEncoder;
+
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,26 +37,27 @@ public class CustomerController {
 	private final CartService cartService;
 	private final EmailSubscriberService emailSubscriberService;
 	private final CustomerOrderService customerOrderService;
-	private final PasswordEncoder passwordEncoder; 
+//	private final PasswordEncoder passwordEncoder; 
 	
 	
 	
 	
 	public CustomerController(CustomerService customerService, CartService cartService,
-			EmailSubscriberService emailSubscriberService, CustomerOrderService customerOrderService,
-			PasswordEncoder passwordEncoder) {
+			EmailSubscriberService emailSubscriberService, CustomerOrderService customerOrderService
+//			, PasswordEncoder passwordEncoder
+			) {
 		this.customerService = customerService;
 		this.cartService = cartService;
 		this.emailSubscriberService = emailSubscriberService;
 		this.customerOrderService = customerOrderService;
-		this.passwordEncoder = passwordEncoder;
+//		this.passwordEncoder = passwordEncoder;
 	}
 
 
 	@GetMapping("/register")
 	public void register(@RequestBody Customer c ) 
 	{
-		c.setPassword(passwordEncoder.encode(c.getPassword())); 
+//		c.setPassword(passwordEncoder.encode(c.getPassword())); 
 		customerService.createCustomer(c);
 		
 	}
