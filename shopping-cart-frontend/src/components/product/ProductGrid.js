@@ -5,7 +5,7 @@ import "./ProductGrid.css" ;
 
 const productGrid = ({products})=>{
     return (
-        <div className="grid-container">
+        <div className="grid-container" >
 
         {products.map(
           product => (

@@ -1,36 +1,73 @@
-
-
-import React, {Component} from "react"; 
+import React, { Component } from "react";
 
 import axios from "axios";
 import ProductGrid from "./components/product/ProductGrid";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-const backendURL = "http://localhost:8080"; 
+import extract from "./utils/extractJsonKey";
+import Navbar from "./components/navbar/Navbar"
+import ProductForm from './components/product/productForm'
+const productsURL = "http://localhost:8080/products";
 
 class App extends Component {
-
-
-
   state = {
-    products:[]
-  }
+    products: [],
+  };
 
-
-  componentDidMount(){
-    axios.get(backendURL)
-    .then(res => {
-      const theProducts = [...res.data] 
+  componentDidMount() {
+    axios.get(productsURL).then((res) => {
+      // console.log(res);
+      const theProducts = [...extract(res, "products")];
       this.setState({
-        products:theProducts
-      })
+        products: theProducts,
+      });
     });
   }
 
-  render(){
+  submitForm =(e)=>{
+    e.preventDefault();
+    
+    const product = {
+      code:e.target[0].value,
+      description:e.target[1].value,
+      imageURL:e.target[2].value,
+      quantity:e.target[3].value,
+      price:e.target[4].value,
 
-
+    }
+    const req = {
+      headers:{
+        "content-type":"application/json"
+      },
+      body:JSON.stringify(product)
+    }
+    axios.post(productsURL,product).then(
+      (res)=>{
+        console.log(res);
+      }
+    ).catch((err)=>{
+      console.log(err);
+    });
+  } 
+  render() {
     return (
-      <ProductGrid products={this.state.products}/>
+
+      <BrowserRouter>
+      <Navbar />
+      <React.Fragment>
+        
+        <Routes>
+
+        <Route path="/" element={<ProductGrid products={this.state.products} />}></Route>
+
+        
+        <Route path="/productForm" element={<ProductForm  submitForm={this.submitForm}/>} />
+
+        <Route path="*" element={<div>No Page Found</div>} />
+
+        </Routes>
+      </React.Fragment>
+      </BrowserRouter>
     );
   }
 }

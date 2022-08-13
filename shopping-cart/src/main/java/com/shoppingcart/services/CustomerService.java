@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-//import org.springframework.security.core.userdetails.UserDetailsService;
-//import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.shoppingcart.models.Customer;
@@ -16,7 +16,7 @@ import com.shoppingcart.repositories.CustomerRepository;
 
 @Service
 public class CustomerService 
-//implements UserDetailsService
+implements UserDetailsService
 {
 
 	
@@ -45,14 +45,14 @@ public class CustomerService
 		return null;
 	}
 
-//	public Customer loadUserByUsername(String username) throws UsernameNotFoundException {
-//
-//		Customer c = customerRepository.findCustomerByUsername(username);
-//		if (c != null) {
-//			return c;
-//		}
-//		throw new UsernameNotFoundException("Username: " + username + " not found");
-//	}
+	public Customer loadUserByUsername(String username) throws UsernameNotFoundException {
+
+		Customer c = customerRepository.findCustomerByUsername(username);
+		if (c != null) {
+			return c;
+		}
+		throw new UsernameNotFoundException("Username: " + username + " not found");
+	}
 
 	public void createCustomer(Customer c) {
 		customerRepository.save(c);
